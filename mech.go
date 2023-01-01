@@ -26,9 +26,11 @@ func getOS() string {
 
 func getKernel() string {
 	host, _ := host.Info()
+
 	if host.OS == "windows" {
 		return strings.Split(host.KernelVersion, " ")[0]
 	}
+
 	return host.KernelVersion
 }
 
@@ -39,18 +41,23 @@ func getUptime() string {
 	minutes := host.Uptime / 60 % 60
 	seconds := host.Uptime % 60
 	uptime := ""
+
 	if days != 0 {
 		uptime = fmt.Sprintf("%s%dd ", uptime, days)
 	}
+
 	if hours != 0 {
 		uptime = fmt.Sprintf("%s%dh ", uptime, hours)
 	}
+
 	if minutes != 0 {
 		uptime = fmt.Sprintf("%s%dm ", uptime, minutes)
 	}
+
 	if seconds != 0 {
 		uptime = fmt.Sprintf("%s%ds ", uptime, seconds)
 	}
+
 	return uptime
 }
 
@@ -59,6 +66,7 @@ func getMemory() string {
 	used := mem.Used / 1024 / 1024 / 1000
 	free := mem.Free / 1024 / 1024 / 1000
 	full := used + free
+
 	return fmt.Sprintf("%dGiB / %dGiB", used, full)
 }
 
