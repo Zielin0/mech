@@ -63,11 +63,11 @@ func getUptime() string {
 
 func getMemory() string {
 	mem, _ := mem.VirtualMemory()
-	used := mem.Used / 1024 / 1024 / 1000
-	free := mem.Free / 1024 / 1024 / 1000
+	used := mem.Used / 1000 / 1000 / 1000
+	free := mem.Free / 1000 / 1000 / 1000
 	full := used + free
 
-	return fmt.Sprintf("%dGiB / %dGiB", used, full)
+	return fmt.Sprintf("%dGB / %dGB", used, full)
 }
 
 func main() {
