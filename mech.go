@@ -29,7 +29,8 @@ func getKernel() string {
 	host, _ := host.Info()
 
 	if host.OS == "windows" {
-		return strings.Split(host.KernelVersion, " ")[0]
+		version := strings.Split(strings.Split(host.KernelVersion, " ")[0], ".")
+		return fmt.Sprintf("%s.%s.%s", version[0], version[1], version[2])
 	}
 
 	return host.KernelVersion
