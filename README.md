@@ -7,6 +7,7 @@
 ## TODO
 
 - [ ] - Add some pretty printing / align text
+- [ ] - Add a good looking screenshot
 - [ ] - Installation script so you can use it everywhere
 
 ## License
