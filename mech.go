@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gookit/color"
+	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
 )
@@ -73,10 +74,18 @@ func getMemory() string {
 	return fmt.Sprintf("%.2fGiB / %.2fGiB (%.0f%%)", used, full, percent)
 }
 
+func getDisks() string {
+	disk, _ := disk.Usage("/")
+	used := disk.Used / 1024 / 1024 / 1024
+	full := disk.Total / 1024 / 1024 / 1024
+	return fmt.Sprintf("%dGiB / %dGiB (%.0f%%)", used, full, math.Round(disk.UsedPercent))
+}
+
 func main() {
 	printHeader()
 	fmt.Println(getOS())
 	fmt.Println(getKernel())
 	fmt.Println(getUptime())
 	fmt.Println(getMemory())
+	fmt.Println(getDisks())
 }
