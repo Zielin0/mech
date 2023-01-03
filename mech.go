@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strings"
 
@@ -67,8 +68,9 @@ func getMemory() string {
 	used := float64(mem.Used/1024/1024) / 1000
 	free := float64(mem.Free/1024/1024) / 1000
 	full := used + free
+	percent := math.Round((used * 100) / full)
 
-	return fmt.Sprintf("%.2fGiB / %.2fGiB", used, full)
+	return fmt.Sprintf("%.2fGiB / %.2fGiB (%.0f%%)", used, full, percent)
 }
 
 func main() {
