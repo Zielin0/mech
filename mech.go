@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"strings"
 
@@ -63,14 +62,10 @@ func getUptime() string {
 	return uptime
 }
 
-func Round(x, unit float64) float64 {
-	return math.Round(x/unit) * unit
-}
-
 func getMemory() string {
 	mem, _ := mem.VirtualMemory()
-	used := Round(float64(mem.Used/1024/1024), 10) / 1000
-	free := Round(float64(mem.Free/1024/1024), 10) / 1000
+	used := float64(mem.Used/1024/1024) / 1000
+	free := float64(mem.Free/1024/1024) / 1000
 	full := used + free
 
 	return fmt.Sprintf("%.2fGiB / %.2fGiB", used, full)
