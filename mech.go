@@ -87,5 +87,8 @@ func main() {
 	fmt.Println(getKernel())
 	fmt.Println(getUptime())
 	fmt.Println(getMemory())
-	fmt.Println(getDisks())
+
+	if len(os.Args) == 2 && os.Args[1] == "--disk" {
+		fmt.Println(getDisks())
+	}
 }
