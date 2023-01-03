@@ -74,8 +74,8 @@ func getMemory() string {
 	return fmt.Sprintf("%.2fGiB / %.2fGiB (%.0f%%)", used, full, percent)
 }
 
-func getDisks() string {
-	disk, _ := disk.Usage("/")
+func getDisk(path string) string {
+	disk, _ := disk.Usage(path)
 	used := disk.Used / 1024 / 1024 / 1024
 	full := disk.Total / 1024 / 1024 / 1024
 	return fmt.Sprintf("%dGiB / %dGiB (%.0f%%)", used, full, math.Round(disk.UsedPercent))
@@ -89,6 +89,9 @@ func main() {
 	fmt.Println(getMemory())
 
 	if len(os.Args) == 2 && os.Args[1] == "--disk" {
-		fmt.Println(getDisks())
+		disks, _ := disk.Partitions(true)
+		for _, disk := range disks {
+			fmt.Println(getDisk(disk.Mountpoint))
+		}
 	}
 }
