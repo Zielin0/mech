@@ -12,6 +12,13 @@ import (
 	"github.com/shirou/gopsutil/v3/mem"
 )
 
+func getHeader() string {
+	host, _ := host.Info()
+	username := os.Getenv("USERNAME")
+
+	return fmt.Sprintf("%s@%s", username, host.Hostname)
+}
+
 func printHeader() {
 	host, _ := host.Info()
 	username := os.Getenv("USERNAME")
@@ -81,17 +88,38 @@ func getDisk(path string) string {
 	return fmt.Sprintf("%dGiB / %dGiB (%.0f%%)", used, full, math.Round(disk.UsedPercent))
 }
 
+// TODO: Add colors. Use ANSI Escape Color Codes
+func alignText(title string, data string) {
+	space := ""
+	space_length := len(getHeader()) - len(title) - 1
+	for i := 0; i < space_length; i++ {
+		space += " "
+	}
+	fmt.Printf("%s%s%s\n", title, space, data)
+}
+
 func main() {
 	printHeader()
-	fmt.Println(getOS())
-	fmt.Println(getKernel())
-	fmt.Println(getUptime())
-	fmt.Println(getMemory())
+	alignText("OS", getOS())
+	alignText("Kernel", getKernel())
+	alignText("Uptime", getUptime())
+	alignText("RAM", getMemory())
 
 	if len(os.Args) == 2 && os.Args[1] == "--disk" {
+		space := ""
+		space_length := len(getHeader()) - len("Disks") - 1
+		for i := 0; i < space_length; i++ {
+			space += " "
+		}
+
+		fmt.Printf("\nDisks%s", space)
 		disks, _ := disk.Partitions(true)
-		for _, disk := range disks {
-			fmt.Println(getDisk(disk.Mountpoint))
+		for i, disk := range disks {
+			if i > 0 {
+				fmt.Printf("%s%s\n", space+space+" ", getDisk(disk.Mountpoint))
+			} else {
+				fmt.Printf("%s\n", getDisk(disk.Mountpoint))
+			}
 		}
 	}
 }
