@@ -6,10 +6,17 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gookit/color"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
+)
+
+type Color string
+
+const (
+	Magenta Color = "\033[35m"
+	White   Color = "\033[37m"
+	Reset   Color = "\033[0m"
 )
 
 func getHeader() string {
@@ -23,9 +30,8 @@ func printHeader() {
 	host, _ := host.Info()
 	username := os.Getenv("USERNAME")
 
-	color.FgLightRed.Print(username)
-	color.FgWhite.Print("@")
-	color.FgLightRed.Println(host.Hostname)
+	// Color, Username, Color, Color, HostName, Reset
+	fmt.Printf("%s%s%s@%s%s%s\n", Magenta, username, White, Magenta, host.Hostname, Reset)
 }
 
 func getOS() string {
