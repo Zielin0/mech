@@ -95,10 +95,12 @@ func getDisk(path string) string {
 	return fmt.Sprintf("%dGiB / %dGiB (%.0f%%)", used, full, math.Round(disk.UsedPercent))
 }
 
-// TODO: Add colors. Use ANSI Escape Color Codes
 func alignText(title string, data string) {
 	space := ""
 	space_length := len(getHeader()) - len(title) - 1
+	if len(getHeader()) >= 20 {
+		space_length = (len(getHeader()) / 2) - len(title) - 1
+	}
 	for i := 0; i < space_length; i++ {
 		space += " "
 	}
@@ -116,6 +118,9 @@ func main() {
 	if len(os.Args) == 2 && os.Args[1] == "--disk" {
 		space := ""
 		space_length := len(getHeader()) - len("Disks") - 1
+		if len(getHeader()) >= 20 {
+			space_length = (len(getHeader()) / 2) - len("Disks") - 1
+		}
 		for i := 0; i < space_length; i++ {
 			space += " "
 		}
