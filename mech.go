@@ -123,6 +123,10 @@ func main() {
 		}
 
 		for i, disk := range disks {
+			if os != "windows" && disk.Fstype != "ext4" {
+				return
+			}
+
 			if i > 0 {
 				fmt.Printf("%s%s\n", space+space+" ", getDisk(disk.Mountpoint))
 			} else {
