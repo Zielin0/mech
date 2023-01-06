@@ -14,6 +14,7 @@ import (
 type Color string
 
 const (
+	Green   Color = "\033[32m"
 	Magenta Color = "\033[35m"
 	White   Color = "\033[37m"
 	Reset   Color = "\033[0m"
@@ -101,7 +102,8 @@ func alignText(title string, data string) {
 	for i := 0; i < space_length; i++ {
 		space += " "
 	}
-	fmt.Printf("%s%s%s\n", title, space, data)
+	// Color, Title, Spaces, Color, Data
+	fmt.Printf("%s%s%s%s%s\n", Green, title, space, White, data)
 }
 
 func main() {
@@ -118,7 +120,7 @@ func main() {
 			space += " "
 		}
 
-		fmt.Printf("\nDisks%s", space)
+		fmt.Printf("\n%sDisks%s%s", Green, space, White)
 
 		host, _ := host.Info()
 		os := host.OS
