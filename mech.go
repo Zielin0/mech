@@ -113,7 +113,15 @@ func main() {
 		}
 
 		fmt.Printf("\nDisks%s", space)
+
+		host, _ := host.Info()
+		os := host.OS
+
 		disks, _ := disk.Partitions(true)
+		if os != "windows" {
+			disks, _ = disk.Partitions(false)
+		}
+
 		for i, disk := range disks {
 			if i > 0 {
 				fmt.Printf("%s%s\n", space+space+" ", getDisk(disk.Mountpoint))
