@@ -24,12 +24,22 @@ func getHeader() string {
 	host, _ := host.Info()
 	username := os.Getenv("USERNAME")
 
+	if host.OS != "windows" {
+		pwd, _ := os.Getwd()
+		username = strings.Split(pwd, "/")[1]
+	}
+
 	return fmt.Sprintf("%s@%s", username, host.Hostname)
 }
 
 func printHeader() {
 	host, _ := host.Info()
 	username := os.Getenv("USERNAME")
+
+	if host.OS != "windows" {
+		pwd, _ := os.Getwd()
+		username = strings.Split(pwd, "/")[2]
+	}
 
 	// Color, Username, Color, Color, HostName, Reset
 	fmt.Printf("%s%s%s@%s%s%s\n", Magenta, username, White, Magenta, host.Hostname, Reset)
