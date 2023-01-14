@@ -42,6 +42,8 @@ $ go run mech.go --disk
 - [x] - Add some pretty printing / align text
 - [x] - Add a good looking screenshot
 - [ ] - Installation script so you can use it everywhere
+  - [ ] - Windows
+  - [x] - Linux
 
 ## License
 
