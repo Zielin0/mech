@@ -40,7 +40,7 @@ $ go run mech.go --disk
 ## TODO
 
 - [x] - Add some pretty printing / align text
-- [x] - Add a good looking screenshot
+- [ ] - Make better screenshot or delete these
 - [ ] - Installation script so you can use it everywhere
   - [ ] - Windows
   - [x] - Linux
